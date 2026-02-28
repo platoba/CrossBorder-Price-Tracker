@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  tracker:
+    build: .
+    container_name: price-tracker
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - tracker-data:/app/data
+    command: ["monitor", "--interval", "3600"]
+
+  # 一次性价格检查
+  checker:
+    build: .
+    container_name: price-checker
+    env_file: .env
+    volumes:
+      - tracker-data:/app/data
+    command: ["check"]
+    profiles:
+      - tools
+
+volumes:
+  tracker-data:
