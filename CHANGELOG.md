@@ -25,3 +25,32 @@
 - Docker Compose deployment
 - GitHub Actions CI
 - 74 tests
+
+## [3.0.0] - 2026-03-02
+
+### Added
+- **Anti-crawl detection engine** (`app/utils/anti_crawl.py`)
+  - `AntiCrawlDetector`: Pattern-based detection for 6 block types (timeout/blocked/captcha/rate-limited/auth-expired/unknown)
+  - `EngineEscalator`: Automatic engine level escalation after 3 consecutive failures (C-line constitution compliance)
+  - 6-level engine hierarchy: L1(static) → L2(JS render) → L3(batch) → L4(fingerprint) → L5(API reverse) → L6(ultimate)
+  - Confidence scoring and evidence tracking for all detections
+- **Miyaip proxy pool integration** (`app/utils/miyaip_loader.py`)
+  - Load static proxies from C-line arsenal (`arsenal/static-proxies-miyaip.json`)
+  - Country-based filtering (US/UK/etc.)
+  - Automatic inactive proxy exclusion
+  - Proxy statistics and health reporting
+- **Comprehensive test coverage**
+  - 24 new tests for anti-crawl detection and miyaip loader
+  - Total test count: 235 tests (up from 211)
+  - All tests passing with 100% success rate
+
+### Technical Details
+- Anti-crawl patterns: 20+ regex patterns for common blocks
+- Escalation protocol: 3-failure threshold per engine level
+- Proxy pool: Weighted random selection by success rate
+- Constitution compliance: Implements C-line daily-v2 engine decision tree
+
+### Stats
+- Files added: 4 (2 modules + 2 test files)
+- Tests added: 24
+- Lines added: ~700
