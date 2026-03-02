@@ -1,30 +1,31 @@
 # Changelog
 
-## [2.0.0] - 2026-02-28
+## [4.0.0] - 2026-03-02
 
 ### Added
-- **Currency Converter** (`app/utils/currency.py`): 18-currency converter with caching, bulk conversion, price formatting
-- **Price Comparator** (`app/services/comparator.py`): Cross-platform price comparison, deal scoring (0-100), similar product discovery (Jaccard), price spread/volatility analysis
-- **Price Predictor** (`app/services/predictor.py`): SMA/EMA moving averages, linear regression with 7-day forecast, Z-score anomaly detection, weekly seasonal patterns, BUY/HOLD/WAIT signal generation
-- **Alert Rules Engine** (`app/services/rules.py`): 8 rule types (price_drop/rise, target_price, back/out_of_stock, new_lowest, percentage/absolute_change), platform/tag/product_id filters, cooldown + daily limits, persistence
-- **Watchlist Manager** (`app/services/watchlist.py`): Named watchlists, bulk URL import, merge, cross-list search, summary statistics
-- **Export Engine** (`app/services/exporter.py`): CSV/JSON/HTML/Markdown export for products, history, alerts, and full reports
-- 137 new tests (6 test files) — total 211 tests, all passing
-- Updated README with full module documentation
+- **EnhancedBaseScraper** (`app/scrapers/enhanced_base.py`): Intelligent anti-crawl detection and automatic engine escalation
+  - 6-level engine hierarchy: L1(static) → L2(JS render) → L3(batch) → L4(fingerprint) → L5(API reverse) → L6(ultimate)
+  - Automatic escalation after 3 consecutive failures per engine level
+  - Miyaip proxy pool integration for L1 static proxies (280 proxies)
+  - Residential proxy (iprocket) for L2+ engines
+  - Real-time anti-crawl detection with confidence scoring
+  - Success tracking and automatic level reset
+  - Engine statistics and performance monitoring
+- **Comprehensive test coverage**
+  - 11 new tests for enhanced base scraper
+  - Total test count: 246 tests (up from 235)
+  - All tests passing with 100% success rate
 
-## [1.0.0] - 2026-02-28
+### Technical Details
+- Anti-crawl patterns: 20+ regex patterns for common blocks
+- Escalation protocol: 3-failure threshold per engine level
+- Proxy selection: Weighted random for L1, configured proxy for L2+
+- Drop-in replacement for BaseScraper with full API compatibility
 
-### Added
-- Initial release
-- 4-platform scrapers: Amazon (US/UK/DE/JP), AliExpress, Shopee, 1688
-- SQLite price tracking with history
-- Multi-channel notifications (Telegram/Email/Webhook)
-- Proxy pool with health scoring
-- CLI with 8 commands (add/import/check/monitor/list/history/report/stats)
-- Price analysis reports with buy recommendations
-- Docker Compose deployment
-- GitHub Actions CI
-- 74 tests
+### Stats
+- Files added: 2 (1 module + 1 test file)
+- Tests added: 11
+- Lines added: ~300
 
 ## [3.0.0] - 2026-03-02
 
@@ -54,3 +55,29 @@
 - Files added: 4 (2 modules + 2 test files)
 - Tests added: 24
 - Lines added: ~700
+
+## [2.0.0] - 2026-02-28
+
+### Added
+- **Currency Converter** (`app/utils/currency.py`): 18-currency converter with caching, bulk conversion, price formatting
+- **Price Comparator** (`app/services/comparator.py`): Cross-platform price comparison, deal scoring (0-100), similar product discovery (Jaccard), price spread/volatility analysis
+- **Price Predictor** (`app/services/predictor.py`): SMA/EMA moving averages, linear regression with 7-day forecast, Z-score anomaly detection, weekly seasonal patterns, BUY/HOLD/WAIT signal generation
+- **Alert Rules Engine** (`app/services/rules.py`): 8 rule types (price_drop/rise, target_price, back/out_of_stock, new_lowest, percentage/absolute_change), platform/tag/product_id filters, cooldown + daily limits, persistence
+- **Watchlist Manager** (`app/services/watchlist.py`): Named watchlists, bulk URL import, merge, cross-list search, summary statistics
+- **Export Engine** (`app/services/exporter.py`): CSV/JSON/HTML/Markdown export for products, history, alerts, and full reports
+- 137 new tests (6 test files) — total 211 tests, all passing
+- Updated README with full module documentation
+
+## [1.0.0] - 2026-02-28
+
+### Added
+- Initial release
+- 4-platform scrapers: Amazon (US/UK/DE/JP), AliExpress, Shopee, 1688
+- SQLite price tracking with history
+- Multi-channel notifications (Telegram/Email/Webhook)
+- Proxy pool with health scoring
+- CLI with 8 commands (add/import/check/monitor/list/history/report/stats)
+- Price analysis reports with buy recommendations
+- Docker Compose deployment
+- GitHub Actions CI
+- 74 tests
